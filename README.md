@@ -1,42 +1,30 @@
 # youtube-dl-ios
 
-> [youtube-dl][youtube-dl] for iOS, with [Pythonista][pythonista] and
+> [youtube-dl][youtube-dl] for iOS, with [Pyto](pyto) and
 [Shortcuts][shortcuts]
 
 Download a video (or its audio track) by sharing it to a shortcut
 
 The shortcut calls a helper script run within Pythonista. This script passes the
-URL to youtube-dl to do the actual download. After the download completes, the
-file is opened in a share sheet where it may be copied to any app, such as VLC.
+URL to youtube-dl to do the actual download. After the download completes, it's 
+stored in the same directory as your original script, and can be copied to any app, 
+such as VLC.
 
 ## Install
 
-1. Install Pythonista
-2. In Pythonista, install [StaSH][stash]
-3. In a StaSH console, install youtube-dl:
-
-    ```sh
-    $ pip install youtube-dl
-    ```
-
-4. and clone this repository (note: `git` is only available if StaSH is run in
-   Python 2):
-
-    ```sh
-    $ cd
-    $ git clone https://github.com/Roman2K/youtube-dl-ios
-    ```
-
-5. Install the shortcut: [iCloud link][shortcut]
+1. Install [Pyto](https://pyto.app/)
+2. Download ytdl.py to where you want the videos to be saved to in Files (e.g. On Your iPhone -> Downloads)
+3. Run the script once (it will error out, but this is important later)
+3. Install the shortcut: [iCloud link][shortcut]
+4. Modify the "Run script" action to point to ytdl.py, if it isn't already (if you did 3, it should show up in the list)
 
 ## Usage
 
-1. Share a video to Shortcuts and then youtube-dl-ios
-2. The downloaded file opens in a share sheet: choose an app
-3. (The temporary file is cleaned up)
+1. Share a video to Shortcuts and then youtube-dl-ios-pyto
+2. The downloaded file is saved 
+3. (If the download is interrupted, either repeat 1-2 to resume, or delete the .part files from Files)
 
 [youtube-dl]: https://rg3.github.io/youtube-dl/
-[pythonista]: http://omz-software.com/pythonista/
+[pyto]: https://pyto.app/
 [shortcuts]: https://support.apple.com/en-jo/guide/shortcuts/welcome/ios
-[stash]:https://github.com/ywangd/stash
-[shortcut]: https://www.icloud.com/shortcuts/85f6b11f2827451da6d1f5b82b11816a
+[shortcut]: https://www.icloud.com/shortcuts/7d9df040c0d94893b47dd6a9e449c480
