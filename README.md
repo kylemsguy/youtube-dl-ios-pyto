@@ -1,4 +1,4 @@
-# youtube-dl-ios
+# youtube-dl-ios-pyto
 
 > [youtube-dl][youtube-dl] for iOS, with [Pyto](pyto) and
 [Shortcuts][shortcuts]
