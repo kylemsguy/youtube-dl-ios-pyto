@@ -1,42 +1,45 @@
-import console
+#import console
 import sys
 import glob
 import os
+import json
 from youtube_dl import YoutubeDL
 
+"""
+Input format: (JSON)
+argv[1] = {"url": "<YOUTUBE_URL>", "type": "<TYPE>"}
+"""
+
 if len(sys.argv) != 2:
-	raise IndexError('usage: %s url;type' % (sys.argv[0]))
-url = sys.argv[1]
-#dl_type = sys.argv[2]
-print('url: %s' % (url))
-quit()
+    raise IndexError('usage: %s data_as_json' % (sys.argv[0]))
 
-choices = (
-	('Audio', 'bestaudio[ext=m4a]', 'm4a'),
-	('Video', 'best[ext=mp4]', 'mp4'),
-)
-#choice = console.alert('youtube-dl', 'Version to extract:',
-#	*(c[0] for c in choices))
+input_data = json.loads(sys.argv[1])
+url = input_data['url']
+dl_type = input_data['type']
+print('input: %s' % (input_data))
 
-#choice = choices[0] if dl_type == "audio"
-choice = None
+choices = {
+    'audio': ('bestaudio[ext=m4a]', 'm4a'),
+    'video': ('best[ext=mp4]', 'mp4'),
+}
 
-_, format, ext = choices[choice-1]
-print('format: %s' % (format))
+fmt, ext = choices[dl_type]
+print('format: %s' % (fmt))
 
 opts = {
-	'format': format
+    'format': fmt,
 }
 with YoutubeDL(opts) as ydl:
-	ydl.download([url])
+    ydl.download([url])
 
-file = max(glob.glob('*.'+ext), key=os.path.getctime)
-if not file:
-	raise IndexError('downloaded file not found')
-print('downloaded: %s' % (file))
+f = max(glob.glob('*.'+ext), key=os.path.getctime)
+if not f:
+    raise IndexError('downloaded file not found')
+print('downloaded: %s' % (f))
 
 try:
-	console.open_in(file)	
+    print("File successfully downloaded {f}".format(f=f))
+    #console.open_in(file)	
 finally:
-	os.remove(file)
-	print('deleted: %s' % (file))
+    os.remove(f)
+    print('deleted: %s' % (f))
