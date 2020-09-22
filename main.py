@@ -10,13 +10,18 @@ Input format: (JSON)
 argv[1] = {"url": "<YOUTUBE_URL>", "type": "<TYPE>"}
 """
 
+def print_flush(*args, **kwargs):
+    """Prints and then flushes stdout"""
+    print(*args, **kwargs)
+    sys.stdout.flush()
+
 if len(sys.argv) != 2:
     raise IndexError('usage: %s data_as_json' % (sys.argv[0]))
 
 input_data = json.loads(sys.argv[1])
 url = input_data['url']
 dl_type = input_data['type']
-print('input: %s' % (input_data))
+print_flush('input: %s' % (input_data))
 
 choices = {
     'audio': ('bestaudio[ext=m4a]', 'm4a'),
@@ -35,11 +40,11 @@ with YoutubeDL(opts) as ydl:
 f = max(glob.glob('*.'+ext), key=os.path.getctime)
 if not f:
     raise IndexError('downloaded file not found')
-print('downloaded: %s' % (f))
+print_flush('downloaded: %s' % (f))
 
 try:
-    print("File successfully downloaded {f}".format(f=f))
+    print_flush("File successfully downloaded {f}".format(f=f))
     #console.open_in(file)	
 finally:
     os.remove(f)
-    print('deleted: %s' % (f))
+    print_flush('deleted: %s' % (f))
