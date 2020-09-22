@@ -40,11 +40,5 @@ with YoutubeDL(opts) as ydl:
 f = max(glob.glob('*.'+ext), key=os.path.getctime)
 if not f:
     raise IndexError('downloaded file not found')
-print_flush('downloaded: %s' % (f))
 
-try:
-    print_flush("File successfully downloaded {f}".format(f=f))
-    #console.open_in(file)	
-finally:
-    os.remove(f)
-    print_flush('deleted: %s' % (f))
+print_flush(f"File successfully downloaded {f}")
